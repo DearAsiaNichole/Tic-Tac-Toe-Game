@@ -108,25 +108,26 @@ public class A {
 
     // METHOD THAT CHECKS THE "DRAW STATUS OF THE GAME
     public static boolean gameStatusDraw(char[][] board) {
-        boolean draw = false;
+        boolean draw = true;
 
-        //DETERMINING IF GAME IS STILL ON
-        for (int i = 0; i < 3; i++)
-            for (int x = 0; x < 3; x++)
+        // DETERMINING IF GAME IS STILL ON
+        for (int i = 0; i < 3; i++) {
+            for (int x = 0; x < 3; x++) {
                 if (board[i][x] == ' ') {
                     draw = false;
-                    return false;
                 }
+            }
+        }
 
-// DETERMINING IF BOARD IS STILL FULL
-        for (int y = 0; y < 3; y++)
-            for (int z = 0; z < 3; z++)
-                if ((board[y][z] == 'X') || (board[y][z] == 'O')) {  //If slot is full
-                    if (board[y][z] == board[2][2]) {  // If slot is full AND is at the end of the board GAME OVER
-                        draw = true;
-                        return true;
-                    }
-
-                }return false;
+        // IS THE BOARD FULL?
+        if(draw) {
+            // DID SOMEONE WIN?
+            if(gameStatusWon(board, 'X') || gameStatusWon(board, 'O')) {
+                draw = false;
+            }
+        }
+        
+        
+        return draw;
     }
 }
